@@ -1,2 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'ruby/taxii'
+require 'simplecov'
+SimpleCov.start
+
+require 'taxii'
+require 'pry'

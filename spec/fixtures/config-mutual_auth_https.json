@@ -1,0 +1,8 @@
+{
+  "user"        : "admin",
+  "pass"        : "avalanche",
+  "ca_cert"     : "spec/fixtures/ssl_client.pem",
+  "client_cert" : "spec/fixtures/ssl_client.key",
+  "client_key"  : "spec/fixtures/ssl_ca_cert.pem", 
+  "url"         : "https://127.0.0.1/taxii-discovery-service"
+}

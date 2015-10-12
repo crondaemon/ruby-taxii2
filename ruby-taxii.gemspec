@@ -5,7 +5,7 @@ require 'taxii/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ruby-taxii'
-  spec.version       = Ruby::Taxii::VERSION
+  spec.version       = Taxii::VERSION
   spec.authors       = ['Ryan Breed']
   spec.email         = ['opensource@breed.org']
 
@@ -20,7 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'nokogiri'
   spec.add_dependency 'nori'
-  #spec.add_dependency 'gyoku'
+  spec.add_dependency 'gyoku'
+  spec.add_dependency 'hashie'
   spec.add_dependency 'rest-client'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
