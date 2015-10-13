@@ -38,16 +38,6 @@ module Taxii
       parsed['Feed_Information_Response'].fetch('Feed',[])
     end
 
-    def count_feed(*poll_request_args)
-      count_results = Taxii::Messages::Parameters::Poll.new
-      request_args = Hash[*poll_request_args].merge(count_results)
-      payload  = Taxii::Messages::PollRequest.new(*request_args)
-      request  = build_request(path: 'taxii-data', payload: payload.to_xml)
-      response = request.execute
-      parsed   = xml.parse(response.body)
-      parsed.fetch('Poll_Response',nil)
-    end
-
     def poll_feed(*poll_request_args)
       payload  = Taxii::Messages::PollRequest.new(*poll_request_args)
       request  = build_request(path: 'taxii-data', payload: payload.to_xml)
