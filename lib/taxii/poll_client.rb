@@ -2,22 +2,7 @@ module Taxii
   class PollClient
     include Client
 
-    def poll_request_full_message(collection_name: 'Default')
-      build = Nokogiri::XML::Builder.new do |xml|
-        xml['taxii_11'].Poll_Request(
-          NAMESPACES.merge(
-            'message_id'      => message_id,
-            'collection_name' => collection_name
-          )
-        ) do
-          xml['taxii_11'].Poll_Parameters( 'allow_asynch' => 'false' ) do
-            xml['taxii_11'].Response_Type('FULL')
-          end
-        end
-      end
-      build.doc.to_s
-    end
-
+    PARSE_OPTIONS = Nokogiri::XML::ParseOptions::DEFAULT_XML | Nokogiri::XML::ParseOptions::NOBLANKS
     def poll_service_available?
       discover_services.any? {|s| s['@service_type'].match(/POLL/i) && s['@available']=='true'}
     end
@@ -43,9 +28,17 @@ module Taxii
       Taxii::Messages::PollRequest.new(collection_name: collection_name, poll_parameters: pparams)
     end
 
-    def poll_feed(poll_request=gen_request)
+    def poll_feed(poll_request=gen_request,parse=true)
       request  = build_request(path: 'taxii-data', payload: poll_request.to_xml)
       response = request.execute
+      if parse
+        xml = Nokogiri::XML(response.body,nil,nil,PARSE_OPTIONS)
+        xml.xpath('/taxii_11:Poll_Response/taxii_11:Content_Block/taxii_11:Content').flat_map do |content|
+          content.children.map &:to_s
+        end
+      else
+        response
+      end
     end
   end
 end

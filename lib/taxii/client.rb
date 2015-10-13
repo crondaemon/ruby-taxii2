@@ -23,6 +23,7 @@ module Taxii
         user:     user,
         password: pass,
         payload:  payload,
+        timeout:  nil,
         headers: {
           'X-Taxii-Services' => 'urn:taxii.mitre.org:services:1.1',
           :content_type      => 'application/xml',
