@@ -31,4 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'guard-bundler'
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'webmock'
 end
