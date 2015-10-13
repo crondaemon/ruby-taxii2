@@ -7,14 +7,14 @@ describe Taxii do
   context 'configuring clients' do
     let(:arbitrary_client_cls) {
       class ArbitraryClient
-        include Taxii::Message, Taxii::Client
+        include Taxii::Client
       end
     }
 
     describe '.configure' do
       it 'creates arbitrary client classes when passed in' do
         arbitrary = Taxii.configure(
-          config: 'spec/fixtures/config-basic_auth_http.json', 
+          config: 'spec/fixtures/config-basic_auth_http.json',
           client: arbitrary_client_cls
         )
         expect(arbitrary).to have_attributes({
@@ -26,7 +26,7 @@ describe Taxii do
 
       it 'creates an http/basic poll client' do
         basic_http = Taxii.configure(
-          config: 'spec/fixtures/config-basic_auth_http.json', 
+          config: 'spec/fixtures/config-basic_auth_http.json',
           client: Taxii::PollClient
         )
         expect(basic_http).to have_attributes({

@@ -2,7 +2,6 @@ module Taxii
   module Client
     def self.included(klass)
       klass.class_eval do
-        include Taxii::Message
         attr_accessor :url, :user, :pass, :client_cert, :client_key, :ca_cert
         attr_reader   :xml
         def initialize(*args)
@@ -15,7 +14,7 @@ module Taxii
       end
     end
 
-    def build_request(path: 'taxii-discovery-service',payload: {}, format: Taxii::Message::TAXII_11_MESSAGE)
+    def build_request(path: 'taxii-discovery-service',payload: {}, format: Taxii::Messages::TAXII_11_HEADERS)
       uri =  File.join(self.url, path)
       RestClient::Request.new(
         method:   :post,

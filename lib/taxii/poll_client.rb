@@ -8,7 +8,7 @@ module Taxii
     end
 
     def discover_services(path: 'taxii-discovery-service')
-      payload  = discovery_request_message
+      payload  = Taxii::Messages::DiscoveryRequest.new.to_xml
       request  = build_request(path: path, payload: payload)
       response = request.execute
       parsed   = xml.parse(response.body)
@@ -16,8 +16,8 @@ module Taxii
     end
 
     def discover_feeds(path: 'taxii-data')
-      payload  = feed_information_request_message
-      request  = build_request(path: path, payload: payload, format:  TAXII_10_MESSAGE)
+      payload  = Taxii::Messages::FeedInformationRequest.new.to_xml
+      request  = build_request(path: path, payload: payload, format:  Taxii::Messages::TAXII_10_HEADERS)
       response = request.execute
       parsed   = xml.parse(response.body)
       parsed['Feed_Information_Response'].fetch('Feed',[])

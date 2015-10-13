@@ -7,10 +7,13 @@ require 'gyoku'
 
 require 'taxii/version'
 require 'taxii/time_extensions'
-require 'taxii/message'
+require 'taxii/messages'
+require 'taxii/messages/parameters'
+require 'taxii/messages/discovery_request'
+require 'taxii/messages/poll_request'
+require 'taxii/messages/feed_information_request'
 require 'taxii/client'
 require 'taxii/poll_client'
-require 'taxii/messages/poll_request'
 
 module Taxii
   def self.configure(config: File.join(ENV['HOME'],'.taxii.json'), client: PollClient)
