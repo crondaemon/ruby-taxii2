@@ -38,12 +38,14 @@ module Taxii
       parsed['Feed_Information_Response'].fetch('Feed',[])
     end
 
-    def poll_feed(*poll_request_args)
-      payload  = Taxii::Messages::PollRequest.new(*poll_request_args)
-      request  = build_request(path: 'taxii-data', payload: payload.to_xml)
+    def gen_request(collection_name: 'system.Default', result_type: 'FULL')
+      pparams = Taxii::Messages::Parameters::Poll.new(result_type: result_type)
+      Taxii::Messages::PollRequest.new(collection_name: collection_name, poll_parameters: pparams)
+    end
+
+    def poll_feed(poll_request=gen_request)
+      request  = build_request(path: 'taxii-data', payload: poll_request.to_xml)
       response = request.execute
-      parsed   = xml.parse(response.body)
-      parsed['Poll_Response'].fetch('Content_Block',[])
     end
   end
 end
