@@ -10,7 +10,7 @@ module Taxii
       end
 
       def to_xml
-        Gyoku.xml({'taxii:Feed_Information_Request': to_h}, key_converter: :none)
+        Gyoku.xml({'taxii:Feed_Information_Request/': to_h}, key_converter: :none)
       end
 
     end

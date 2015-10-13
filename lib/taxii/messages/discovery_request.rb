@@ -10,7 +10,7 @@ module Taxii
       end
 
       def to_xml
-        Gyoku.xml({'taxii_11:Discovery_Request': to_h}, key_converter: :none)
+        Gyoku.xml({'taxii_11:Discovery_Request/': to_h}, key_converter: :none)
       end
     end
   end
