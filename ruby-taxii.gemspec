@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'libxml-ruby'
   spec.add_dependency 'nokogiri'
   spec.add_dependency 'nori'
   spec.add_dependency 'gyoku'

@@ -1,5 +1,5 @@
 # STILL DOOMED TO FAILURE. I WILL KEEP THIS AS A WARNING TO
-# SIMILARLY TERRIBLE CODE
+# SIMILARLY TERRIBLE CODE 
 module Taxii
   module MessageParsers
     class PollResponse < Nokogiri::XML::SAX::Document
