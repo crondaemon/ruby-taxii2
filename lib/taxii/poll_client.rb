@@ -23,11 +23,6 @@ module Taxii
       parsed['Feed_Information_Response'].fetch('Feed',[])
     end
 
-    def gen_request(collection_name: 'system.Default', response_type: 'FULL')
-      pparams = Taxii::Messages::Parameters::Poll.new(response_type: response_type)
-      Taxii::Messages::PollRequest.new(collection_name: collection_name, poll_parameters: pparams)
-    end
-
     def poll_feed(poll_request=gen_request,parse=true)
       request  = build_request(path: 'taxii-data', payload: poll_request.to_xml)
       response = request.execute
