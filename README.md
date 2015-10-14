@@ -34,4 +34,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ruby-taxii.
 
-# bundle config build.nokogiri  --use-system-libraries  -- --with-xml2-include=/usr/local/Cellar/libxml2/2.9.2/include/libxml2 --with-xml2-lib=/usr/local/Cellar/libxml2/2.9.2/lib
+# stix_xmls.flat_map {|s| s.xpath('/stix:STIX_Package/stix:Observables/cybox:Observable/cybox:Object/cybox:Properties[@category="ipv4-addr"]').children.map(&:text)}
+#
