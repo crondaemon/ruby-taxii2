@@ -1,5 +1,5 @@
 {
   "user" : "guest",
   "pass" : "guest",
-  "url"  : "http://taxiitest.mitre.org"
+  "url"  : "http://taxiitest.mitre.org/services/discovery/"
 }

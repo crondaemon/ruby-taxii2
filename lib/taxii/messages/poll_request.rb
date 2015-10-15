@@ -5,8 +5,8 @@ module Taxii
 
       property :collection_name, default: 'system.Default'
       property :message_id, default: -> { Taxii::Messages.generate_id }
-      property :exclusive_begin_timestamp, default: -> { Time.new - 3600 }
-      property :inclusive_end_timestamp, default: -> { Time.new }
+      property :exclusive_begin_timestamp
+      property :inclusive_end_timestamp
       property :subscription_id
       property :poll_parameters,
                  required: -> { subscription_id.nil? },

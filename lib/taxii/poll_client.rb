@@ -3,36 +3,29 @@ module Taxii
     include Client
 
     PARSE_OPTIONS = Nokogiri::XML::ParseOptions::DEFAULT_XML | Nokogiri::XML::ParseOptions::NOBLANKS
-    def poll_service_available?
-      discover_services.any? {|s| s['@service_type'].match(/POLL/i) && s['@available']=='true'}
+    CONTENT_XPATH = '/taxii_11:Poll_Response/taxii_11:Content_Block/taxii_11:Content'
+
+    def get( poll_request_message, url: self.poll_service_url)
+      msg = format_request(poll_request_message)
+      build_request(url: url, payload: msg).execute
     end
 
-    def discover_services(path: 'taxii-discovery-service')
-      payload  = Taxii::Messages::DiscoveryRequest.new.to_xml
-      request  = build_request(path: path, payload: payload)
-      response = request.execute
-      parsed   = xml.parse(response.body)
-      parsed['Discovery_Response'].fetch('Service_Instance',[])
+    def get_content_blocks( poll_request_message,
+                            url: self.poll_service_url,
+                            xpath: CONTENT_XPATH )
+      response = self.get(poll_request_message, url: url)
+      content_xml = Nokogiri::XML(response.body,nil,nil,PARSE_OPTIONS)
+      content_xml.xpath(xpath).flat_map { |blk| blk.children.map(&:to_s) }
     end
 
-    def discover_feeds(path: 'taxii-data')
-      payload  = Taxii::Messages::FeedInformationRequest.new.to_xml
-      request  = build_request(path: path, payload: payload, format:  Taxii::Messages::TAXII_10_HEADERS)
-      response = request.execute
-      parsed   = xml.parse(response.body)
-      parsed['Feed_Information_Response'].fetch('Feed',[])
-    end
-
-    def poll_feed(poll_request=gen_request,parse=true)
-      request  = build_request(path: 'taxii-data', payload: poll_request.to_xml)
-      response = request.execute
-      if parse
-        xml = Nokogiri::XML(response.body,nil,nil,PARSE_OPTIONS)
-        xml.xpath('/taxii_11:Poll_Response/taxii_11:Content_Block/taxii_11:Content').flat_map do |content|
-          content.children.map &:to_s
-        end
-      else
-        response
+    def format_request(request_message)
+      case request_message
+        when String
+          request_message
+        when Taxii::Messages::PollRequest
+          request_message.to_xml
+        else
+          fail ArgumentError, 'request message must be String or PollRequest'
       end
     end
   end

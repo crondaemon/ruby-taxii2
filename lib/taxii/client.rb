@@ -14,11 +14,10 @@ module Taxii
       end
     end
 
-    def build_request(path: 'taxii-discovery-service',payload: {}, format: Taxii::Messages::TAXII_11_HEADERS)
-      uri =  File.join(self.url, path)
+    def build_request(url: self.url,payload: {}, format: Taxii::Messages::TAXII_11_HEADERS)
       RestClient::Request.new(
         method:   :post,
-        url:      uri,
+        url:      url,
         user:     user,
         password: pass,
         payload:  payload,
@@ -30,6 +29,43 @@ module Taxii
         }.merge(format)
          .merge(scheme_protocol)
       )
+    end
+
+    def get_service_address(service_name)
+      service = discover_services.find do |svc|
+        svc['@service_type']==service_name && svc['@available']=='true'
+      end
+      service.nil? ? nil : service['Address']
+    end
+
+    def discover_services
+      payload  = Taxii::Messages::DiscoveryRequest.new.to_xml
+      response = build_request(url: self.url, payload: payload).execute
+      parsed   = xml.parse(response.body)
+      parsed['Discovery_Response'].fetch('Service_Instance',[])
+    end
+
+    def discovery_service_url
+      self.url
+    end
+
+    def inbox_service_url
+      @inbox_service_url ||= get_service_address('INBOX')
+    end
+    
+    def collection_management_service_url
+      @collection_management_service_url ||= get_service_address('COLLECTION_MANAGEMENT')
+    end
+
+    def poll_service_url
+      @poll_service_url ||= get_service_address('POLL')
+    end
+
+    def discover_feeds(url=self.collection_management_service_url)
+      msg  = Taxii::Messages::FeedInformationRequest.new.to_xml
+      http  = build_request(url: url, payload: msg, format: Taxii::Messages::TAXII_10_HEADERS)
+      parsed  = xml.parse(http.execute.body)
+      parsed['Feed_Information_Response'].fetch('Feed',[])
     end
 
     def scheme_protocol

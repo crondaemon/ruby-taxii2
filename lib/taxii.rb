@@ -21,4 +21,12 @@ module Taxii
     client.new(configuration)
   end
 
+  def self.hail
+    PollClient.new(user: 'guest', pass: 'guest', url: 'http://hailataxii.com/taxii-discovery-service')
+  end
+
+  def self.yeti
+    PollClient.new(user: 'guest', pass: 'guest', url: 'http://taxiitest.mitre.org/services/discovery/')
+  end
+
 end
