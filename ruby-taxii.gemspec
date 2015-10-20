@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ruby/taxii/version'
+require 'taxii/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ruby-taxii'
-  spec.version       = Ruby::Taxii::VERSION
+  spec.version       = Taxii::VERSION
   spec.authors       = ['Ryan Breed']
   spec.email         = ['opensource@breed.org']
 
@@ -18,8 +18,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'nokogiri'
   spec.add_dependency 'nori'
   spec.add_dependency 'gyoku'
+  spec.add_dependency 'hashie'
   spec.add_dependency 'rest-client'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
@@ -29,4 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'guard-bundler'
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'webmock'
 end
