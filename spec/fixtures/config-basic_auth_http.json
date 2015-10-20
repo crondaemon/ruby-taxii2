@@ -1,5 +1,5 @@
 {
-  "user" : "admin",
-  "pass" : "avalanche",
-  "url"  : "http://127.0.0.1/taxii-discovery-service"
+  "user" : "basic",
+  "pass" : "Basic0(*&",
+  "url"  : "http://taxii.local/taxii-discovery-service"
 }

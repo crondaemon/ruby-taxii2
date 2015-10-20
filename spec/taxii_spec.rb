@@ -20,7 +20,7 @@ describe Taxii do
         expect(arbitrary).to have_attributes({
           user: 'admin',
           pass: 'avalanche',
-          url:  'http://127.0.0.1/taxii-discovery-service'
+          url:  'http://taxii.local/taxii-discovery-service'
         })
       end
 
@@ -32,7 +32,7 @@ describe Taxii do
         expect(basic_http).to have_attributes({
           user: 'admin',
           pass: 'avalanche',
-          url:  'http://127.0.0.1/taxii-discovery-service'
+          url:  'http://taxii.local/taxii-discovery-service'
         })
       end
       it 'creates PollClient instances by default' do
