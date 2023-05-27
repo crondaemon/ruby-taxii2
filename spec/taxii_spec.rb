@@ -18,8 +18,8 @@ describe Taxii do
           client: arbitrary_client_cls
         )
         expect(arbitrary).to have_attributes({
-          user: 'admin',
-          pass: 'avalanche',
+          user: 'basic',
+          pass: 'Basic0(*&',
           url:  'http://taxii.local/taxii-discovery-service'
         })
       end
@@ -30,8 +30,8 @@ describe Taxii do
           client: Taxii::PollClient
         )
         expect(basic_http).to have_attributes({
-          user: 'admin',
-          pass: 'avalanche',
+          user: 'basic',
+          pass: 'Basic0(*&',
           url:  'http://taxii.local/taxii-discovery-service'
         })
       end

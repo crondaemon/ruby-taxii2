@@ -9,10 +9,6 @@ VCR.configure do |v|
   v.hook_into :webmock
 end
 
-RSpec.configure do |c|
-  c.extend VCR::RSpec::Macros
-end
-
 require 'simplecov'
 SimpleCov.start
 

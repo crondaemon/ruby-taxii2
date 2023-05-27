@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'taxii/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'ruby-taxii'
+  spec.name          = 'ruby-taxii2'
   spec.version       = Taxii::VERSION
-  spec.authors       = ['Ryan Breed']
-  spec.email         = ['opensource@breed.org']
+  spec.authors       = ['Dario Lombardo']
+  spec.email         = ['lomato@gmail.com']
 
   spec.summary       = %q{ ruby taxii client }
   spec.description   = %q{ implement api-alike for python libtaxii https://github.com/TAXIIProject/libtaxii }
-  spec.homepage      = 'https://github.com/ryanbreed/ruby-taxii'
+  spec.homepage      = 'https://github.com/crondaemon/ruby-taxii2'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
@@ -24,8 +24,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hashie'
   spec.add_dependency 'rest-client'
 
-  spec.add_development_dependency 'bundler', '~> 1.10'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'bundler', '~> 2.3'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'guard'
   spec.add_development_dependency 'guard-rspec'

@@ -3,12 +3,12 @@ describe Taxii::Messages do
 
   let(:spec_parser) { Nori.new }
 
-  context 'generating message ids' do
-    describe '.generate_id' do
-      it 'returns an id'
-    end
-  end
-
+  # context 'generating message ids' do
+  #   describe '.generate_id' do
+  #     it 'returns an id'
+  #   end
+  # end
+  # 
   # context 'generating messages' do
   #   describe 'feed_information_request_message' do
   #     let(:request_message) { fake_client.feed_information_request_message }
