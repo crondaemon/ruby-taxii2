@@ -9,7 +9,7 @@ Currently under development - likely to break at a moment's notice.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ruby-taxii'
+gem 'ruby-taxii2'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ruby-taxii
+    $ gem install ruby-taxii2
 
 ## Usage
 
@@ -28,4 +28,4 @@ Or install it yourself as:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ryanbreed/ruby-taxii.
+Bug reports and pull requests are welcome on GitHub at https://github.com/crondaemon/ruby-taxii2.
