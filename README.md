@@ -22,6 +22,26 @@ Or install it yourself as:
 
 ## Usage
 
+```ruby
+require 'taxii'
+
+client = Taxii::configure(config: 'my.config.json')
+collections = client.discover_collections
+
+# List collections (name, type and availability)
+puts "Listing collections:"
+collections.each do |collection|
+  puts "#{collection['@collection_name']} #{collection['@collection_type']} #{collection['@available']}"
+end
+
+# Pick up the first available collection
+collection_name = collections.find{ |collection| collection['@available'] == 'true' }['@collection_name']
+
+puts "Retrieving data for collection: #{collection_name}"
+poll_request_message = Taxii::Messages::PollRequest.new(collection_name: collection_name,
+  poll_parameters: Taxii::Messages::Parameters::Poll.new(response_type: 'FULL'))
+client.get_content_blocks(poll_request_message)
+```
 
 ## Development
 
