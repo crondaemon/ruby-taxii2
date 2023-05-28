@@ -33,7 +33,7 @@ module Taxii
 
     def get_service_address(service_name)
       service = discover_services.find do |svc|
-        svc['@service_type']==service_name && svc['@available']=='true'
+        svc['@service_type'] == service_name && svc['@available'] == 'true'
       end
       service.nil? ? nil : service['Address']
     end
@@ -61,11 +61,18 @@ module Taxii
       @poll_service_url ||= get_service_address('POLL')
     end
 
-    def discover_feeds(url=self.collection_management_service_url)
+    def discover_feeds(url = self.collection_management_service_url)
       msg  = Taxii::Messages::FeedInformationRequest.new.to_xml
       http  = build_request(url: url, payload: msg, format: Taxii::Messages::TAXII_10_HEADERS)
       parsed  = xml.parse(http.execute.body)
-      parsed['Feed_Information_Response'].fetch('Feed',[])
+      parsed['Feed_Information_Response'].fetch('Feed', [])
+    end
+
+    def discover_collections(url = self.collection_management_service_url)
+      msg  = Taxii::Messages::CollectionInformationRequest.new.to_xml
+      http  = build_request(url: url, payload: msg, format: Taxii::Messages::TAXII_10_HEADERS)
+      parsed  = xml.parse(http.execute.body)
+      parsed['Collection_Information_Response'].fetch('Collection', [])
     end
 
     def scheme_protocol
