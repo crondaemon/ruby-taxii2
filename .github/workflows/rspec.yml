@@ -16,3 +16,4 @@ jobs:
         ruby-version: 3.1.2
     - run: bundle
     - run: bundle exec rspec
+    - run: gem build
