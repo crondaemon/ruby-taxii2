@@ -21,7 +21,7 @@ module Taxii
         if exclusive_begin_timestamp.nil?
           {}
         else
-          {'Exclusive_Begin_Timestamp': exclusive_begin_timestamp.strftime(TS_FORMAT)}
+          {'taxii_11:Exclusive_Begin_Timestamp': exclusive_begin_timestamp.strftime(TS_FORMAT)}
         end
       end
 
@@ -29,7 +29,7 @@ module Taxii
         if inclusive_end_timestamp.nil?
           {}
         else
-          {'Inclusive_End_Timestamp': inclusive_end_timestamp.strftime(TS_FORMAT)}
+          {'taxii_11:Inclusive_End_Timestamp': inclusive_end_timestamp.strftime(TS_FORMAT)}
         end
       end
       def requested_info
