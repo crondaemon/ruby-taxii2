@@ -15,6 +15,7 @@ require 'taxii/messages/poll_request'
 require 'taxii/messages/poll_fulfillment_request'
 require 'taxii/messages/feed_information_request'
 require 'taxii/messages/collection_information_request'
+require 'taxii/messages/content_block'
 require 'taxii/client'
 require 'taxii/poll_client'
 
