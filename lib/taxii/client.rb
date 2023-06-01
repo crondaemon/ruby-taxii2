@@ -14,7 +14,7 @@ module Taxii
       end
     end
 
-    def build_request(url: self.url,payload: {}, format: Taxii::Messages::TAXII_11_HEADERS)
+    def build_request(url: self.url, payload: {}, format: Taxii::Messages::TAXII_11_HEADERS)
       RestClient::Request.new(
         method:   :post,
         url:      url,
