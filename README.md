@@ -38,9 +38,19 @@ end
 collection_name = collections.find{ |collection| collection['@available'] == 'true' }['@collection_name']
 
 puts "Retrieving data for collection: #{collection_name}"
-poll_request_message = Taxii::Messages::PollRequest.new(collection_name: collection_name,
-  poll_parameters: Taxii::Messages::Parameters::Poll.new(response_type: 'FULL'))
-client.get_content_blocks(poll_request_message)
+poll_request_message = Taxii::Messages::PollRequest.new(
+  collection_name: collection_name,
+  poll_parameters: Taxii::Messages::Parameters::Poll.new(response_type: 'FULL')
+)
+
+client.get_content_blocks(poll_request_message).each do |message|
+  begin
+    # Try to parse the response as a Content_Block
+    pp Taxii::Messages::ContentBlock.new(message)
+  rescue
+    puts 'This is not a ContentBlock'
+  end
+end
 ```
 
 ## Development
