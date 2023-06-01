@@ -10,3 +10,4 @@
 /spec/fixtures/spec_ca/
 /tmp/
 /vendor/bundle/
+*.gem
