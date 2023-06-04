@@ -1,3 +1,5 @@
+require 'json'
+
 module Taxii
   module Messages
     class ContentBlock < Hashie::Dash
@@ -13,6 +15,10 @@ module Taxii
 
       def inspect
         self.to_s
+      end
+
+      def as_json
+        JSON.parse(@body)
       end
 
       def pretty_print(pp)
