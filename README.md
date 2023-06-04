@@ -47,6 +47,8 @@ client.get_content_blocks(poll_request_message).each do |message|
   begin
     # Try to parse the response as a Content_Block
     pp Taxii::Messages::ContentBlock.new(message)
+    # You can also convert it to json
+    # pp Taxii::Messages::ContentBlock.new(message).as_json
   rescue
     puts 'This is not a ContentBlock'
   end
