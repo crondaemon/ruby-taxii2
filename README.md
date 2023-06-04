@@ -25,7 +25,10 @@ Or install it yourself as:
 ```ruby
 require 'taxii'
 
-client = Taxii::configure(config: 'my.config.json')
+# You can use a json file configuration
+# client = Taxii::configure(config: 'my.config.json')
+# or a direct configuration
+client = Taxii::configure(user: 'user', pass: 'pass', url: 'url')
 collections = client.discover_collections
 
 # List collections (name, type and availability)

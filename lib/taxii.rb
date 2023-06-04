@@ -20,8 +20,21 @@ require 'taxii/client'
 require 'taxii/poll_client'
 
 module Taxii
-  def self.configure(config: File.join(ENV['HOME'],'.taxii.json'), client: PollClient)
-    configuration = JSON.parse(File.read(config))
+  def self.configure(options = {})
+    client = options.fetch(:client, PollClient)
+    config = options.fetch(:config, File.join(ENV['HOME'],'.taxii.json'))
+    user = options[:user]
+    pass = options[:pass]
+    url = options[:url]
+
+    if user && pass && url
+      configuration = { user: user, pass: pass, url: url }
+    elsif File.exist?(config)
+      configuration = JSON.parse(File.read(config))
+    else
+      raise('You must provide user+pass+url, ora a config file, or have a default $HOME/.taxii.json')
+    end
+
     client.new(configuration)
   end
 

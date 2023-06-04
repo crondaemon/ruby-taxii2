@@ -45,7 +45,7 @@ describe Taxii do
         if File.exist?(File.join(ENV['HOME'],'.taxii.json'))
           expect(Taxii.configure).to be_a(Taxii::PollClient)
         else
-          expect{ default_config = Taxii.configure }.to raise_error(Errno::ENOENT, /No such file/)
+          expect{ default_config = Taxii.configure }.to raise_error(RuntimeError, /You must provide user\+pass\+url/)
         end
       end
     end
