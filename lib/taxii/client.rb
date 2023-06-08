@@ -2,7 +2,7 @@ module Taxii
   module Client
     def self.included(klass)
       klass.class_eval do
-        attr_accessor :url, :user, :pass, :client_cert, :client_key, :ca_cert
+        attr_accessor :url, :user, :pass, :logger, :client_cert, :client_key, :ca_cert
         attr_reader   :xml
         def initialize(*args)
           Hash[*args].each {|k,v| self.send(format('%s=',k),v)}
