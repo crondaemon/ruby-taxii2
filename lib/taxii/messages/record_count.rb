@@ -1,8 +1,8 @@
 module Taxii
   module Messages
-    class ContentBlock < Message
+    class RecordCount < Message
       def self.object_path
-        ['Content_Block', 'Content']
+        ['Record_Count']
       end
     end
   end
