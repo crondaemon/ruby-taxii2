@@ -56,4 +56,34 @@ describe Taxii::Messages do
   #     end
   #   end
   # end
+
+  context 'content block' do
+    let(:content_block){ Taxii::Messages::ContentBlock.new(File.read('spec/fixtures/content_block.xml')) }
+    let(:exclusive_begin_timestamp) do
+      Taxii::Messages::ExclusiveBeginTimestamp.new(File.read('spec/fixtures/exclusive_begin_timestamp.xml'))
+    end
+    let(:inclusive_end_timestamp) do
+      Taxii::Messages::InclusiveEndTimestamp.new(File.read('spec/fixtures/inclusive_end_timestamp.xml'))
+    end
+
+    describe 'give utilities to the user' do
+      it 'gives the user a string' do
+        expect(content_block.to_s).to be_a(String)
+        expect(content_block.inspect).to be_a(String)
+      end
+
+      it 'gives the user a json' do
+        expect(content_block.as_json).to be_a(Hash)
+      end
+
+      it 'let the user to pretty print' do
+        expect{ pp content_block }.to output("\n\t\t\t{ \"key\": \"value\" }\n\t\t\n\n").to_stdout
+      end
+
+      it 'gives the user a timestamp as json' do
+        expect(exclusive_begin_timestamp.as_json).to be_a(DateTime)
+        expect(inclusive_end_timestamp.as_json).to be_a(DateTime)
+      end
+    end
+  end
 end

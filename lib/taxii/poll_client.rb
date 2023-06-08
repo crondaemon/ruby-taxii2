@@ -62,7 +62,9 @@ module Taxii
         when Taxii::Messages::PollRequest, Taxii::Messages::PollFulfillmentRequest
           request_message.to_xml
         else
+          # :nocov:
           fail ArgumentError, 'request message must be String or PollRequest'
+          # :nocov:
       end
     end
   end

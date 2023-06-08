@@ -31,7 +31,7 @@ module Taxii
     pass = options[:pass]
     url = options[:url]
 
-    if user && pass && url
+    if url
       configuration = { user: user, pass: pass, url: url }
     elsif File.exist?(config)
       configuration = JSON.parse(File.read(config))

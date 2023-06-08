@@ -6,7 +6,6 @@ module Taxii
       def initialize(body)
         parsed = Nori.new(strip_namespaces: true).parse(body)
         @body = parsed.dig(*self.class.object_path)
-        @body
       end
 
       def to_s

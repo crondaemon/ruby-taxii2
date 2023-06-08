@@ -6,8 +6,6 @@ module Taxii
         attr_reader   :xml
         def initialize(*args)
           Hash[*args].each {|k,v| self.send(format('%s=',k),v)}
-          @user ||= 'admin'
-          @pass ||= 'avalanche'
           @xml = Nori.new(strip_namespaces: true)
           self
         end
@@ -61,16 +59,16 @@ module Taxii
       @poll_service_url ||= get_service_address('POLL')
     end
 
-    def discover_feeds(url = self.collection_management_service_url)
+    def discover_feeds(url: self.collection_management_service_url, format: Taxii::Messages::TAXII_10_HEADERS)
       msg  = Taxii::Messages::FeedInformationRequest.new.to_xml
-      http  = build_request(url: url, payload: msg, format: Taxii::Messages::TAXII_10_HEADERS)
+      http  = build_request(url: url, payload: msg, format: format)
       parsed  = xml.parse(http.execute.body)
       parsed['Feed_Information_Response'].fetch('Feed', [])
     end
 
-    def discover_collections(url = self.collection_management_service_url)
+    def discover_collections(url: self.collection_management_service_url, format: Taxii::Messages::TAXII_10_HEADERS)
       msg  = Taxii::Messages::CollectionInformationRequest.new.to_xml
-      http  = build_request(url: url, payload: msg, format: Taxii::Messages::TAXII_10_HEADERS)
+      http  = build_request(url: url, payload: msg, format: format)
       parsed  = xml.parse(http.execute.body)
       parsed['Collection_Information_Response'].fetch('Collection', [])
     end
