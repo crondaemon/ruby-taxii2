@@ -31,6 +31,7 @@ module Taxii
         @content_xml = Nokogiri::XML(response.body, nil, nil, PARSE_OPTIONS)
 
         blocks += response_blocks
+        @logger.info("#{blocks.count} blocks received") if @logger
       end
 
       blocks

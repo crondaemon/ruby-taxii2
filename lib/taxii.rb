@@ -39,6 +39,8 @@ module Taxii
       raise('You must provide user+pass+url, ora a config file, or have a default $HOME/.taxii.json')
     end
 
+    configuration[:logger] = options[:logger]
+
     client.new(configuration)
   end
 
