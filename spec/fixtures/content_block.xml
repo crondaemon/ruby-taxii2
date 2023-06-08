@@ -1,0 +1,7 @@
+<taxii_11:Content_Block>
+	<taxii_11:Content_Binding binding_id="urn:eset.com:json:1.0.0"/>
+		<taxii_11:Content>
+			{ "key": "value" }
+		</taxii_11:Content>
+	<taxii_11:Timestamp_Label>2023-06-09T06:50:14+00:00</taxii_11:Timestamp_Label>
+</taxii_11:Content_Block>
