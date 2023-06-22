@@ -56,3 +56,7 @@ end
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/crondaemon/ruby-taxii2.
+
+# See also
+
+Ruby Stix2: https://github.com/crondaemon/ruby-stix2
