@@ -40,7 +40,9 @@ module Taxii
       payload  = Taxii::Messages::DiscoveryRequest.new.to_xml
       response = build_request(url: self.url, payload: payload).execute
       parsed   = xml.parse(response.body)
-      parsed['Discovery_Response'].fetch('Service_Instance',[])
+      discovery_response = parsed['Discovery_Response']
+      raise("Error getting Discovery_Response: #{parsed}") if !discovery_response
+      discovery_response.fetch('Service_Instance', [])
     end
 
     def discovery_service_url
@@ -63,14 +65,18 @@ module Taxii
       msg  = Taxii::Messages::FeedInformationRequest.new.to_xml
       http  = build_request(url: url, payload: msg, format: format)
       parsed  = xml.parse(http.execute.body)
-      parsed['Feed_Information_Response'].fetch('Feed', [])
+      feed_information_response = parsed['Feed_Information_Response']
+      raise("Error getting Feed_Information_Response: #{parsed}") if !feed_information_response
+      feed_information_response.fetch('Feed', [])
     end
 
     def discover_collections(url: self.collection_management_service_url, format: Taxii::Messages::TAXII_10_HEADERS)
       msg  = Taxii::Messages::CollectionInformationRequest.new.to_xml
       http  = build_request(url: url, payload: msg, format: format)
       parsed  = xml.parse(http.execute.body)
-      parsed['Collection_Information_Response'].fetch('Collection', [])
+      collection_information_response = parsed['Collection_Information_Response']
+      raise("Error getting Collection_Information_Response: #{parsed}") if !collection_information_response
+      collection_information_response.fetch('Collection', [])
     end
 
     def scheme_protocol
