@@ -22,7 +22,7 @@ jobs:
         bundler: latest
     - run: bundle
     - run: bundle exec rspec
-    - name: SimpleCov ${{ matrix.ruby }}
+    - name: SimpleCov Ruby ${{ matrix.ruby }}
       uses: joshmfrankel/simplecov-check-action@main
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.ruby == '3.1' }}
       with:
